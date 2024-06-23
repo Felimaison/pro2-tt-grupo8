@@ -12,6 +12,12 @@ let validacionAgregar = [
         .notEmpty().withMessage('Debes agregar una imagen').bail()
         .isURL().withMessage('La URL de la imagen no es valida')
 ]
+let validacionComentario = [
+    body('comentario')
+        .notEmpty().withMessage('Debes completarlo').bail()
+        .isLength({min: 5}).withMessage("El comentario tiene que por lo menos tener 5 caracteres como minimo")
+]
+
 
 
 

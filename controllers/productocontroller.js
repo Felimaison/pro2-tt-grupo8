@@ -169,6 +169,7 @@ const productContoller ={
     
                 return res.render('product', {title:"Product", productos: results, comentarios: results.comentarios, condition: condition, errors: errors.mapped(), old: req.body})})
             
+                
                 .catch(function(error){
                 console.log(error);
             });   
