@@ -5,7 +5,7 @@ const perfilController = require('../controllers/perfilcontrollers');
 const db = require('../database/models');
 const bcrypt = require("bcryptjs");
 const session = require('express-session')
-
+// hacemos validacion de login de user
 let validacionLogin = [
 body('email')
 .notEmpty().withMessage('Debes colocar un email').bail()

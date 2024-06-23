@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 const productContoller = require('../controllers/productocontroller');
 const { body } = require('express-validator');
-
+ // hacemos validaciones de productos
 let validacionAgregar = [
     body('nombreProd')
         .notEmpty().withMessage('El producto debe tener un nombre'),
