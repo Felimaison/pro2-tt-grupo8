@@ -3,26 +3,27 @@ const zapas = require('../db/data')
  
 const indexController = {
     index: function (req, res) {
-        let nombreZapa = []
-        let descripcionZapa = []
-        let comentarios = []
-        let imagenes = []
-        let id = []
-        for (let i = 0; i < zapatillas.productos.length; i++) {
-            nombreZapa.push(zapatillas.productos[i].nombre)
-            descripcionZapa.push(zapatillas.productos[i].descripcion)
-            comentarios.push(zapatillas.productos[i].comentarios)
-            imagenes.push(zapatillas.productos[i].imagen)
-            id.push(zapatillas.productos[i].id)
 
-            
+        let filtrar = {
+            order: [["createdAt", "DESC"]],
+            include: [
+                {association: "comentarios"},
+                {association: "usuario"}
+            ]
         }
-        res.render("index", { title: nombreZapa,
-            descripcion: descripcionZapa,
-            comentarios:comentarios,
-            imagen: imagenes,
-            id: id
-         });
+       
+        db.Product.findAll(filtrar)
+        .then(function (results) {
+
+            return res.render("index", {productos: results, user: req.session.user, userId:req.cookies.userId, usuario: req.session.user})
+    
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+
+
+        
     },
     search: function(req, res){
 

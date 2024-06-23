@@ -4,7 +4,11 @@
 <%- include("./partials/head")%>
 <body>
 	<!-- Header -->
-	<%- include("./partials/header")%>
+	<% if (locals.user != undefined) { %>
+		<%- include("./partials/headerLogueado") %>
+	<% } else { %>
+		<%- include("./partials/header") %>
+	<% } %>
 	<!-- /Header -->
 	
 
@@ -18,63 +22,31 @@
 	<div class="container products-wrapper">
 		<div class="row">
 			<div class="col-12">
-				<h2 class="products-title">Novedades</h2>
+				<h2 class="products-title"></h2>
 			</div>
 			<!-- Show the "últimos" products -->
-			<% for (let i = 0; i < 10; i++) { %>
-				<div class="col-12 col-sm-6 col-lg-3">
+			<% if (productos && productos.length > 0) { %>
+				<% productos.forEach(function(producto) { %>
+					<div class="col-12 col-sm-6 col-lg-3">
 					<section class="product-box">
-						<a href="/product/">
-							<figure class="product-box_image">
-								<img src="<%= imagen[i] %>" alt="<%= title[i] %>">
-							</figure>
-							<article class="product-box_data">
-								<h2><%= title[i] %></h2>
-								<p><%= descripcion[i] %></p>
-								<p> Comentarios: <%= comentarios[i].length %></p>
-							</article>
-						</a>
+					<a href="/product/id/<%= producto.id %>">
+						<figure class="product-box_image">
+							<img class="imagen_zapas" src="<%= producto.imagenProd %>" alt="<%= producto.nombreProd %>">
+						</figure>
+						<article class="product-box_data">
+							<h2><%= producto.nombreProd %></h2>
+							<p><%= producto.descripcion %></p>
+						</article>
+					</a>
 					</section>
-				</div>
+					</div>
+				<% }) %>
+			<% } else { %>
+				<p>No products available.</p>
 			<% } %>
-		</div>
-	</div>
-	
-	
-
-
-
-
-
+			
 	<!-- /Novedades -->
-	<!-- Más comentados -->
-	<div class="container products-wrapper">
-		<div class="row">
-			<div class="col-12">
-				<h2 class="products-title">Novedades</h2>
-			</div>
-			<!-- Show the "últimos" products -->
-			<% for (let i = 0; i < 10; i++) { %>
-				<div class="col-12 col-sm-6 col-lg-3">
-					<section class="product-box">
-						<a href="/product/">
-							<figure class="product-box_image">
-								<img src="<%= imagen[i] %>" alt="<%= title[i] %>">
-							</figure>
-							<article class="product-box_data">
-								<h2><%= title[i] %></h2>
-								<p><%= descripcion[i] %></p>
-								<p> Comentarios: <%= comentarios[i].length %></p>
-							</article>
-						</a>
-					</section>
-				</div>
-			<% } %>
-		</div>
-	</div>
-	<!-- /Más comentados -->
-
-
+	
 	<!-- footer -->
 	<%- include("./partials/footer")%>
 	<!-- /footer -->

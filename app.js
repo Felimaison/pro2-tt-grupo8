@@ -3,13 +3,12 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const session = require("express-session")
+const db = require("./database/models");
 
 const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
 const productoRouter = require("./routes/producto");
-const perfilRouter = require("./routes/profile");
-const cargarProducto = require("./routes/cargarProducto");
-
+const usersRouter = require("./routes/users");
 
 
 
@@ -25,9 +24,45 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+/* Configuracion de session */
+app.use(session({
+  secret: "myapp",
+  resave: false,
+  saveUninitialized: true
+}));
+
+/* pasar info de sess ----> locals */
+app.use(function(req,res,next){
+  if (req.session.user != undefined) {
+    res.locals.user = req.session.user;
+  }
+  return next()
+});
+
+app.use(function(req, res, next) {
+  if (req.cookies.userId != undefined && req.session.user == undefined) {
+      let id = req.cookies.userId; 
+
+      db.Usuario.findByPk(id)
+      .then(function(result) {
+
+        req.session.user = result;
+        res.locals.user = result;
+
+        return next(); 
+      }).catch(function(err) {
+        return console.log(err); ; 
+      });
+  } 
+  else {
+    return next()
+  }
+});         
+
 app.use('/', indexRouter);
 app.use("/product", productoRouter);
 app.use("/users", usersRouter)
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
