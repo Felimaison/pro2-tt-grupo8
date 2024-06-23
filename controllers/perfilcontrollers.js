@@ -80,8 +80,13 @@ const perfilContoller = {
         return res.redirect("/")
     },
     register: function(req, res, next){
-        res.render("register", {title:"Register"});
+        if (req.session.user != undefined) {
+        return res.redirect("/users/profile/id" + req.session.user.id);
     }
+    else {
+        return res.render("register", {title: "Register"})
+    }
+}
 }; 
 
 module.exports = perfilContoller;
