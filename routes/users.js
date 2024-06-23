@@ -42,7 +42,30 @@ body('password')
 
 })
 ]
+let validacionRegistro = [
+    body('email')
+    .notEmpty().withMessage('Debes completar el mail').bail()
+    .isEmail().withMessage("El mail debe ser correcto").bail()
+    .custom(function(value){
+        return db.Usuario.findOne({where: { mail: value }})
+              .then(function(user){
+                    if(user == undefined){ 
+                        return true;
+                    }
+                    else{
+                        throw new Error ('Este mail es existente')
+                    }
+              })
+    }),
 
+    
+    body('username')
+    .notEmpty().withMessage('Colocar un nombre usuario'),
+    
+    body('password')
+    .notEmpty().withMessage('Debes elegir una contraseña').bail()
+    .isLength({ min: 5 }).withMessage('La contraseña por lo menos debe tener 5 caracteres')
+]
 
 
 
@@ -50,7 +73,7 @@ router.get('/login', perfilController.login);
 router.post("/login",validacionLogin, perfilController.loginUser);
 
 router.get('/register', perfilController.register);
-router.post('/register', perfilController.store);
+router.post('/register', validacionRegistro, perfilController.store);
 
 router.get('/profile', perfilController.profile);
 
