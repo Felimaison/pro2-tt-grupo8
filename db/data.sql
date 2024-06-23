@@ -44,11 +44,11 @@ CREATE TABLE comentarios (
 
 INSERT INTO usuarios (id, mail, contrasenia, usuario, fechaNacimiento, numeroDocumento, foto)
 VALUES 
-(default, 'pepito@udesa.edu.ar', '123', "pepito", '1940-05-07', 46123804, '/images/users/pepito.png'),
-(default, 'messi@gmail.com', '456', "messi", '2010-10-10', 10294852, '/images/users/messi.png'),
-(default, 'julian@udesa.edu.ar', '789', "julian", '2011-11-11', 46223904, '/images/users/julian.png'),
-(default, 'enzo@udesa.edu.ar', '181', "enzof", '1990-01-01', 9987204, '/images/users/enzo.png'),
-(default, 'gallardo@udesa.edu.ar', '912', "gallardo", '2018-09-12', 4612304, '/images/users/gallardo.png');
+(default, 'pepito@udesa.edu.ar', '123', "pepito", '1940-05-07', 46123804, 'https://peru21.pe/resizer/yNu6EZADMOnCY-YGevBD84tCoSM=/1200x1200/smart/filters:format(jpeg):quality(75)/cloudfront-us-east-1.images.arcpublishing.com/elcomercio/6RDFP4F6QNCN7FYPLOTLM2IQ5M.jpg'),
+(default, 'messi@gmail.com', '456', "messi", '2010-10-10', 10294852, 'https://img.a.transfermarkt.technology/portrait/big/28003-1710080339.jpg?lm=1'),
+(default, 'julian@udesa.edu.ar', '789', "julian", '2011-11-11', 46223904, 'https://s.hs-data.com/bilder/spieler/gross/445514.jpg?fallback=png'),
+(default, 'enzo@udesa.edu.ar', '181', "enzof", '1990-01-01', 9987204, 'https://b.fssta.com/uploads/application/soccer/headshots/73453.vresize.350.350.medium.84.png'),
+(default, 'gallardo@udesa.edu.ar', '912', "gallardo", '2018-09-12', 4612304, 'https://images.pagina12.com.ar/styles/focal_3_2_960x640/public/2023-06/737041-gallardo-0.jpg?h=b3660f0d&itok=APM0im41');
 
 INSERT INTO productos (id, clienteId, nombreProd, imagenProd, descripcion)
 VALUES 
