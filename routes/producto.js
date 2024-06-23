@@ -12,7 +12,11 @@ let validacionAgregar = [
         .notEmpty().withMessage('Debes agregar una imagen').bail()
         .isURL().withMessage('La URL de la imagen no es valida')
 ]
+
+
+
 router.get('/id/:id', productContoller.product);
+router.post('/id/:id',validacionComentario, productContoller.comment);
 
 router.get('/add', productContoller.create);
 router.post('/add',validacionAgregar, productContoller.store);
