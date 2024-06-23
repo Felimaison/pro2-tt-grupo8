@@ -75,7 +75,7 @@ router.post("/login",validacionLogin, perfilController.loginUser);
 router.get('/register', perfilController.register);
 router.post('/register', validacionRegistro, perfilController.store);
 
-router.get('/profile', perfilController.profile);
+router.get('/profile/id/:id', perfilController.profile);
 
 router.get('/edit', perfilController.edit);
 

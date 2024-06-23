@@ -4,7 +4,11 @@
 <%- include("./partials/head")%>
 <body>
 	<!-- Header -->
-	<%- include("./partials/headerLogueado")%>
+	<% if (locals.user != undefined) { %>
+		<%- include("./partials/headerLogueado") %>
+	<% } else { %>
+		<%- include("./partials/header") %>
+	<% } %>
 	<!-- /Header -->
 
 
@@ -12,22 +16,24 @@
 	<section class="info-usuario container products-wrapper">
 		<div class="row">
 			<div class="img-container offset-3 col-2">
-				<img src="<%= usuario.imagenPerfil %>" alt="foto de perfil" class="foto-perfil">
+				<img src="<%= usuario.foto %>" alt="foto de perfil" class="foto-perfil">
 			</div>
 			<div class="data-container col-6">
 				<div class="d-flex align-items-center ">
 					<h1 class="main-title"> <%= usuario.usuario %>
-						<a href="/edit">
+						
+						<a href="/users/edit">
 							<i class="fas fa-cog"></i>
 						</a>
+						
 					</h1>
 					<a class="btn mt-3 ml-4" href="">SEGUIR</a>
 				</div>
 				<div>
 					<ul class="perfil_info">
-						<li>Email: <%= usuario.email %></li>
+						<li>Email: <%= usuario.mail %></li>
+						<li><%= productos.length %> productos</li>
 						<li>200 seguidores</li>
-						<li>300 comentarios</li>
 					</ul>
 				</div>
 			</div>
@@ -35,33 +41,34 @@
 	</section>
 	<!-- /Datos del usuario -->
 
-	<!-- Mis productos -->
-	<div class="container products-wrapper">
-		<div class="row">
-			<div class="col-12">
-				<h2 class="products-title">Novedades</h2>
-			</div>
-			<!-- Show the "últimos" products -->
-			<% for (let i = 0; i < 8; i++) { %>
-				<div class="col-12 col-sm-6 col-lg-3">
-					<section class="product-box">
-						<a href="/product/<%= id[i] %>">
-							<figure class="product-box_image">
-								<img src="<%= imagen[i] %>" alt="<%= title[i] %>">
-							</figure>
-							<article class="product-box_data">
-								<h2><%= title[i] %></h2>
-								<p><%= descripcion[i] %></p>
-								<p>Comentarios: <%= comentarios[i].length %></p>
-							</article>
-						</a>
-					</section>
-				</div>
-			<% } %>
-		</div>
-	</div>
+	
+			
+			
 	<!-- /Mis productos -->
-
+	<div class="container products-wrapper">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="products-title">Mis productos</h2>
+            </div>
+            <!-- Show the "ultimos" products -->
+            <% for(let i = 0; i < productos.length; i++) { %>
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <section class="product-box">
+                        <a href="/product/id/<%= productos[i].id %>">
+                            <figure class="product-box_image">
+                                <img class="fotoIndex" src=<%= productos[i].imagenProd %>>
+                            </figure>
+                            <article class="product-box_data">
+                                <h2><%= productos[i].nombreProd %></h2>
+                                <p><%= productos[i].descripcion %></p>
+                                <p>Comentarios: 0</p>
+                            </article>
+                        </a>
+                    </section>
+                </div>
+            <% } %>
+        </div>
+    </div>
 	<!-- footer -->
 	<%- include("./partials/footer")%>
 	<!-- /footer -->
