@@ -34,7 +34,21 @@ const perfilContoller = {
             });
     },
     edit: function(req, res, next) {
-        res.render("profileEdit", {title: "Profile Edit", usuario: zapatillas.usuario});
+
+        if (req.session.user != undefined) {
+
+            id = req.session.user.id;
+            db.Usuario.findByPk(id)
+        .then(function (results) {
+            return res.render("profileEdit", {title:"Profile Edit", usuario: results});
+        })
+        .catch(function (err) {
+            console.log(err);
+        });
+        }
+        else{
+            return res.redirect("/users/login");
+        }
     },
     login: function(req, res, next){
 

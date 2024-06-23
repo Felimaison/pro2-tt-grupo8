@@ -67,7 +67,17 @@ let validacionRegistro = [
     .isLength({ min: 5 }).withMessage('La contraseña por lo menos debe tener 5 caracteres')
 ]
 
-
+let validacionesEditar = [
+    body('mail')
+    .notEmpty().withMessage('Debes completar el mail').bail()
+    .isEmail().withMessage('El mail no es valido').bail(),
+    body('usuario')
+    .notEmpty().withMessage('Debes elegir un nombre de usuario'),
+    
+    body('contrasenia')
+    .notEmpty().withMessage("Debes de colocar una contraseña").bail()
+    .isLength({ min: 5 }).withMessage('La contraseña debe por lo menos tener 5 caracteres')
+]
 
 router.get('/login', perfilController.login);
 router.post("/login",validacionLogin, perfilController.loginUser);
@@ -78,6 +88,7 @@ router.post('/register', validacionRegistro, perfilController.store);
 router.get('/profile/id/:id', perfilController.profile);
 
 router.get('/edit', perfilController.edit);
+router.post('/edit', validacionesEditar, perfilController.update); 
 
 router.post('/logout', perfilController.logout);
 
