@@ -1,7 +1,8 @@
-const zapatillas = require("../db/data");
-const sneakers = require ("../db/data")
+const db = require("../database/models")
+const op = db.Sequelize.Op;
+const { validationResult } = require("express-validator");
 
-const productContoller ={
+const productContoller = {
     product: function (req, res) {
         res.render("product", {title: "Product detail", productos: zapatillas.productos})
     },
@@ -169,7 +170,7 @@ const productContoller ={
     
                 return res.render('product', {title:"Product", productos: results, comentarios: results.comentarios, condition: condition, errors: errors.mapped(), old: req.body})})
             
-                
+
                 .catch(function(error){
                 console.log(error);
             });   

@@ -5,6 +5,7 @@
   padding: 30px 15px 15px 0;
 
 }
+
 .comentarios article{
   margin-bottom: 7.5px;
   padding-bottom: 7.5px;
@@ -230,6 +231,10 @@ hr {
   display: block;
 }
 
+a{
+  text-decoration: none;
+}
+
 .product-box_image {
   border-bottom: 1px solid var(--light-gray);
 }
@@ -290,6 +295,19 @@ hr {
 .product-box:hover {
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 }
+
+.profile-container {
+  position: relative;
+  display: inline-block;
+}
+
+
+.profile-container {
+  position: relative;
+  display: inline-block;
+}
+
+
 
 .product-box:hover p {
   height: 36px;

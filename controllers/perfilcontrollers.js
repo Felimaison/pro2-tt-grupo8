@@ -1,6 +1,8 @@
-const zapatillas = require('../db/data')
-const zapas = require("../db/data")
-const usuario = zapatillas.usuario;
+const db = require('../database/models');
+const op = db.Sequelize.Op;
+const bcrypt = require("bcryptjs");
+const {validationResult} = require("express-validator");
+const { update } = require('./productocontroller');
 
 const perfilContoller = {
     profile: function(req, res, next) {
