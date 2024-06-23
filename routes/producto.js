@@ -21,8 +21,9 @@ router.post('/id/:id',validacionComentario, productContoller.comment);
 router.get('/add', productContoller.create);
 router.post('/add',validacionAgregar, productContoller.store);
 
+
 router.post('/editProduct', productContoller.formUpdate);
-router.post('/edit', productContoller.update);
+router.post('/edit',validacionAgregar, productContoller.update);
 
 router.post('/delete', productContoller.destroy);
 
