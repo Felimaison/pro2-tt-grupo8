@@ -51,7 +51,9 @@ const perfilContoller = {
         else{
             return res.redirect("/users/login");
         }
+
     },
+
     login: function(req, res, next){
 
         if (req.session.user != undefined) {
@@ -97,11 +99,7 @@ const perfilContoller = {
             res.render('login', {title: "Login", errors: errors.mapped(),  old: req.body, user: req.session.user});
         }
     },
-    logout: (req,res, next) => {
-        req.session.destroy();
-        res.clearCookie("userId")
-        return res.redirect("/")
-    },
+
     register: function(req, res, next){
         if (req.session.user != undefined) {
         return res.redirect("/users/profile/id" + req.session.user.id);
@@ -109,7 +107,83 @@ const perfilContoller = {
     else {
         return res.render("register", {title: "Register"})
     }
+},
+
+    
+    logout: (req,res, next) => {
+        req.session.destroy();
+        res.clearCookie("userId")
+        return res.redirect("/")
+    },
+
+    store: (req, res) => {
+        let form = req.body;
+
+        let errors = validationResult(req);
+       
+        if (errors.isEmpty()) {
+            
+            let usuario = {
+                mail: form.email,
+                contrasenia: bcrypt.hashSync(form.password, 10),
+                usuario: form.username,
+                fechaNacimiento: form.birthdate,
+                numeroDocumento: form.document_number,
+                foto: form.profile_picture
+            };
+    
+        db.Usuario.create(usuario)
+        .then((result) => {
+            return res.redirect("/users/login")
+        })
+        .catch((err) => {
+            return console.log(err)
+        });
+      }
+      else{
+        return res.render("register", {errors: errors.mapped(), old: req.body})
+      }
+
+
+   
+},
+update: function(req, res) {
+    let errors = validationResult(req);
+    let form = req.body;
+
+    if (errors.isEmpty()) {
+
+        let filtrar = {
+            where: {
+            id: req.session.user.id
+            }
+        } 
+
+        let usuario = {
+            mail: form.mail,
+            usuario: form.usuario,
+            contrasenia: bcrypt.hashSync(form.contrasenia, 10),
+            fechaNacimiento: form.fechaNacimiento,
+            numeroDocumento: form.numeroDocumento,
+            foto: form.foto 
+        }
+
+        db.Usuario.update(usuario, filtrar)
+        .then((result) => {
+            return res.redirect("/users/login")
+        })
+        .catch((err) => {
+            return console.log(err);
+        });       
+    } 
+        
+    
+    else {
+       
+        return res.render('profileEdit', {title: "Profile Edit", errors: errors.mapped(), old: req.body }); 
+    }
+    
 }
-}; 
+};
 
 module.exports = perfilContoller;

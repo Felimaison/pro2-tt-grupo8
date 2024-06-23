@@ -3,9 +3,35 @@ const op = db.Sequelize.Op;
 const { validationResult } = require("express-validator");
 
 const productContoller = {
+
     product: function (req, res) {
-        res.render("product", {title: "Product detail", productos: zapatillas.productos})
+
+        let id = req.params.id;
+
+        let criterio = {
+            include: [
+                {association: "usuario"},
+                {association: "comentarios",
+                include: [{association: "usuario"}]
+                }
+            ],
+            order: [[{model: db.Comentario, as: "comentarios"}, "createdAt", "DESC"]]
+        };
+
+        let condition = false;
+
+        db.Product.findByPk(id, criterio)
+        .then(function(results){
+            if (req.session.user != undefined && req.session.user.id == results.usuario.id){
+                condition = true;
+            }
+            return res.render("product", {productos: results, comentarios: results.comentarios, condition: condition})
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
     },
+
     create: function(req, res) {
         if(req.session.user != undefined){
             return res.render("productAdd",{title: "Add Product"})
@@ -33,7 +59,6 @@ const productContoller = {
             return res.render("productAdd", {errors: errors.mapped(), old:req.body});
         }
     },
-
     
     formUpdate: function(req, res) {
         let form = req.body
@@ -98,7 +123,6 @@ const productContoller = {
             });       
          } 
     },
-
     delete: function(req, res) {
         let form = req.body;
         
@@ -170,7 +194,6 @@ const productContoller = {
     
                 return res.render('product', {title:"Product", productos: results, comentarios: results.comentarios, condition: condition, errors: errors.mapped(), old: req.body})})
             
-
                 .catch(function(error){
                 console.log(error);
             });   

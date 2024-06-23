@@ -6,7 +6,11 @@
 
 <body>
 	<!-- Header -->
-	<%- include("./partials/header")%>
+	<% if (locals.user != undefined) { %>
+		<%- include("./partials/headerLogueado") %>
+	<% } else { %>
+		<%- include("./partials/header") %>
+	<% } %>
 
 	<!-- Novedades -->
 	<div class="container products-wrapper">
@@ -19,23 +23,23 @@
 	<div class="container products-wrapper">
         <div class="row">
             <!-- Show the "ultimos" products -->
-            <%for (let index = 0; index < 10; index++) {%>
+            <% productos.forEach(function(producto, index) { %>
                 <div class="col-12 col-sm-6 col-lg-3">
                     <section class="product-box">
-                        <a href="/product">
+                        <a href="/product/id/<%= producto.id %>">
                             <figure class="product-box_image">
-                                <img class="fotoIndex" src=<%= productos[index].imagen %>>
+                                <img class="fotoIndex" src=<%= producto.imagenProd %>>
                             </figure>
                             <article class="product-box_data">
-                                <h2><%= productos[index].nombre %></h2>
-                                <p><%= productos[index].descripcion %></p>
-                                <p>Comentarios: <%= productos[index].comentarios.length %></p>
+                                <h2><%= producto.nombreProd %></h2>
+                                <p><%= producto.descripcion %></p>
+                                <p>Comentarios: 0</p>
 
                             </article>
                         </a>
                     </section>
                 </div>
-            <%}%>
+                <% }); %>
         </div>
     </div>
 

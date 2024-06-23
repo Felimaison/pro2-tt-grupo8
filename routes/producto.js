@@ -31,7 +31,7 @@ router.post('/add',validacionAgregar, productContoller.store);
 router.post('/editProduct', productContoller.formUpdate);
 router.post('/edit',validacionAgregar, productContoller.update);
 
-router.post('/delete', productContoller.destroy);
+router.post('/delete', productContoller.delete);
 
 module.exports = router;
 
