@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<!-- Include Head -->
+<%- include("./partials/head")%>
+<body>
+	<!-- Header -->
+	<%- include("./partials/header")%>
+	<!-- /Header -->
+	
+
+	<!-- Banner -->
+	<div class="banner">
+		<img class="imagen_banner" src="images/banner.jpg" alt="Banner de ofertas">
+	</div>
+	<!-- /Banner -->
+
+	<!-- Novedades -->
+	<div class="container products-wrapper">
+		<div class="row">
+			<div class="col-12">
+				<h2 class="products-title">Novedades</h2>
+			</div>
+			<!-- Show the "últimos" products -->
+			<% for (let i = 0; i < 10; i++) { %>
+				<div class="col-12 col-sm-6 col-lg-3">
+					<section class="product-box">
+						<a href="/product/">
+							<figure class="product-box_image">
+								<img src="<%= imagen[i] %>" alt="<%= title[i] %>">
+							</figure>
+							<article class="product-box_data">
+								<h2><%= title[i] %></h2>
+								<p><%= descripcion[i] %></p>
+								<p> Comentarios: <%= comentarios[i].length %></p>
+							</article>
+						</a>
+					</section>
+				</div>
+			<% } %>
+		</div>
+	</div>
+	
+	
+
+
+
+
+
+	<!-- /Novedades -->
+	<!-- Más comentados -->
+	<div class="container products-wrapper">
+		<div class="row">
+			<div class="col-12">
+				<h2 class="products-title">Novedades</h2>
+			</div>
+			<!-- Show the "últimos" products -->
+			<% for (let i = 0; i < 10; i++) { %>
+				<div class="col-12 col-sm-6 col-lg-3">
+					<section class="product-box">
+						<a href="/product/">
+							<figure class="product-box_image">
+								<img src="<%= imagen[i] %>" alt="<%= title[i] %>">
+							</figure>
+							<article class="product-box_data">
+								<h2><%= title[i] %></h2>
+								<p><%= descripcion[i] %></p>
+								<p> Comentarios: <%= comentarios[i].length %></p>
+							</article>
+						</a>
+					</section>
+				</div>
+			<% } %>
+		</div>
+	</div>
+	<!-- /Más comentados -->
+
+
+	<!-- footer -->
+	<%- include("./partials/footer")%>
+	<!-- /footer -->
+</body>	
+</html>

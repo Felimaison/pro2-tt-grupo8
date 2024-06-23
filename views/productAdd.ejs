@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<!-- Include Head -->
+
+<%- include("./partials/head")%>
+
+<body>
+	<%- include("./partials/headerLogueado")%>
+	<!-- /Header -->
+
+
+	<!-- Novedades -->
+	<div class="container products-wrapper">
+		<div class="row">
+			<div class="col-12">
+				<h2 class="products-title">Agregar productos</h2>
+			</div>
+			<!-- Show the "ultimos" products -->
+			<div class="col-12"> 
+				<div class="col-12"> 
+					<form action="/" method="get" class="productForm">
+						<label for="imagen" class="formLabel">Imagen: </label>
+						<input type="file" id="imagen" name="imagen" class="formInput" required>
+						<br>
+						<label for="nombre_producto" class="formLabel">Nombre del producto: </label>
+						<input type="text" id="nombre_producto" name="nombre_producto" class="formInput" required>
+						<br>
+						<label for="descripcion" class="formLabel">Descripción: </label>
+						<input type="text" id="descripcion" name="descripcion" class="formInput" required>
+						<br><br>
+						<input type="submit" value="Guardar Producto" class="formButton">
+					</form>
+				</div>
+				<!--- <i>///////////////////////////////////////// <br> Acá va el formulario para agregar prodcutos al catálogo. <br>
+			Debe cumplir con los puntos de la consigna y ser coherente con la tabla de la base de datos. <br>
+			Eliminen estás líneas y coloquen el formulario. <br>
+			Recuerden todo lo que necesita tanto la etiqueta form como los campos input para operar correctamtente</i> <br>
+			//////////////// -->
+			</div>
+
+
+	<!-- footer -->
+	<%- include("./partials/footer")%>
+	<!-- /footer -->
+</body>
+
+</html>

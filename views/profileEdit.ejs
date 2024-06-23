@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<!-- Include Head -->
+ <%- include("./partials/head")%>
+
+<body>
+	<!-- Header -->
+	<%- include("./partials/headerLogueado")%>
+	<!-- /Header -->
+>
+
+	<!-- Novedades -->
+	<div class="container products-wrapper">
+		<div class="row">
+			<div class="col-12">
+				<h2 class="products-title">Editar mi perfil</h2>
+			</div>
+			<!-- Show the "ultimos" products -->
+			<div class="col-12"> 
+				<form action="/perfil" method="GET">
+					<div class="formGroup">
+					  <label for="email">Email:</label>
+					  <input type="email" id="email" name="email" class="formInput" required>
+					</div>
+					<div class="formGroup">
+					  <label for="usuario">Usuario:</label>
+					  <input type="text" id="usuario" name="usuario" class="formInput" required>
+					</div>
+					<div class="formGroup">
+					  <label for="contraseña">Contraseña:</label>
+					  <input type="password" id="contraseña" name="contraseña" class="formInput" required>
+					</div>
+					<div class="form-group">
+					  <label for="fecha-nacimiento">Fecha de Nacimiento:</label>
+					  <input type="date" id="fechaNacimiento" name="fechaNacimiento" class="formInput" required>
+					</div>
+					<div class="formGroup">
+					  <label for="documento">Nro de Documento:</label>
+					  <input type="number" id="documento" name="nroDocumento" class="formInput" required>
+					</div>
+					<button type="submit" class="enviar">Editar Perfil</button>
+				  </form>		
+			</div>
+
+	<!-- footer -->
+	<!-- footer -->
+	<%- include("./partials/footer")%>
+	<!-- /footer -->
+</body>
+
+</html>
