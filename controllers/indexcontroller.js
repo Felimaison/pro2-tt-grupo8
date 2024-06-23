@@ -24,8 +24,31 @@ const indexController = {
             id: id
          });
     },
-    search: function(req, res, next){
-        res.render("searchResults", {title:"Search results", productos: zapatillas.productos})
+    search: function(req, res){
+
+        let search = req.query.search;
+
+        let filtro = {
+            where: {
+                [op.or]: [
+                {nombreProd: {[op.like]: "%" + search + "%"}},
+                {descripcion: {[op.like]: "%" + search + "%"}}
+                ]
+            },
+            order: [["createdAt", "DESC"]],
+            include: [
+                {association: "comentarios"},
+                {association: "usuario"}
+            ]
+        }
+
+        db.Product.findAll(filtro)
+        .then(function(results){
+            return res.render('searchResults', {productos: results, usuario: req.session.user});
+        })
+        .catch(function(error){
+            console.log(error);
+        });
          }
 }
 

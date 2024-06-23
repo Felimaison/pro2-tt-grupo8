@@ -74,7 +74,11 @@ const perfilContoller = {
             res.render('login', {title: "Login", errors: errors.mapped(),  old: req.body, user: req.session.user});
         }
     },
-    
+    logout: (req,res, next) => {
+        req.session.destroy();
+        res.clearCookie("userId")
+        return res.redirect("/")
+    },
     register: function(req, res, next){
         res.render("register", {title:"Register"});
     }
