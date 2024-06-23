@@ -2,12 +2,16 @@
 <html lang="es">
 <!-- Include Head -->
 
-<%- include("./partials/head")%>
+<%- include("./partials/head") %>
 
 <body>
-	<%- include("./partials/headerLogueado")%>
+	<!-- Header -->
+	<% if (locals.user != undefined) { %>
+		<%- include("./partials/headerLogueado") %>
+	<% } else { %>
+		<%- include("./partials/header") %>
+	<% } %>
 	<!-- /Header -->
-
 
 	<!-- Novedades -->
 	<div class="container products-wrapper">
@@ -15,32 +19,39 @@
 			<div class="col-12">
 				<h2 class="products-title">Agregar productos</h2>
 			</div>
-			<!-- Show the "ultimos" products -->
-			<div class="col-12"> 
-				<div class="col-12"> 
-					<form action="/" method="get" class="productForm">
-						<label for="imagen" class="formLabel">Imagen: </label>
-						<input type="file" id="imagen" name="imagen" class="formInput" required>
-						<br>
-						<label for="nombre_producto" class="formLabel">Nombre del producto: </label>
-						<input type="text" id="nombre_producto" name="nombre_producto" class="formInput" required>
-						<br>
-						<label for="descripcion" class="formLabel">Descripción: </label>
-						<input type="text" id="descripcion" name="descripcion" class="formInput" required>
-						<br><br>
-						<input type="submit" value="Guardar Producto" class="formButton">
-					</form>
-				</div>
-				<!--- <i>///////////////////////////////////////// <br> Acá va el formulario para agregar prodcutos al catálogo. <br>
-			Debe cumplir con los puntos de la consigna y ser coherente con la tabla de la base de datos. <br>
-			Eliminen estás líneas y coloquen el formulario. <br>
-			Recuerden todo lo que necesita tanto la etiqueta form como los campos input para operar correctamtente</i> <br>
-			//////////////// -->
-			</div>
+			<!-- Muestra los "ultimos" productos -->
+			<h2 class="col-12"></h2>
+			<form class="formPropio" action="/product/add" method="POST">
 
+				<input type="hidden" name="clienteId" value="<%= locals.user.id %>">
+			 
+				<label class="form-label"for="nombreProd">Nombre del producto</label><br>
+				<input class="form-input" type="text" id="nombreProd" name="nombreProd" value="<%= locals.old !== undefined && old.nombreProd ? old.nombreProd : "" %>"><br>
+				<% if (locals.errors && errors.nombreProd) { %>
+					<p class="feedback"><%= errors.nombreProd.msg %></p>
+				<% } %>
+				
+				<label class="form-label" for="imagenProd">Imagen</label><br>
+				<input class="form-input file-select" type="text" id="imagen" name="imagenProd" value="<%= locals.old !== undefined && old.imagenProd ? old.imagenProd : "" %>"><br>
+				<% if (locals.errors && errors.imagenProd) { %>
+					<p class="feedback"><%= errors.imagenProd.msg %></p>
+				<% } %>
+
+				<label class="form-label" for="descripcion">Descripción</label><br>
+				<textarea class="form-input" id="descripcion" name="descripcion" rows="4"><%= locals.old !== undefined && old.descripcion ? old.descripcion : "" %></textarea><br>
+				<% if (locals.errors && errors.descripcion) { %>
+					<p class="feedback"><%= errors.descripcion.msg %></p>
+				<% } %>
+			 
+				<button type="submit" class="buy-now-button botonRegister">Agregar Producto</button>
+			</form>
+		</div>
+	</div>
+			
 
 	<!-- footer -->
-	<%- include("./partials/footer")%>
+	<%- include("./partials/footer") %>
+
 	<!-- /footer -->
 </body>
 
